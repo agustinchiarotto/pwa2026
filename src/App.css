@@ -1,3 +1,7 @@
 .saludo {
   color: green
 }
+
+.flex {
+  display: flex;
+}
