@@ -68,6 +68,7 @@ function App() {
   return (
     <div style={{ display: "flex ", flexDirection: "column", gap: 18 }}>
       <h1 className="saludo">{saludo}</h1>
+      <Titulo texto="Hola Vercel" />
       <Titulo texto={holaMundo} />
       <Titulo texto={holaMundo} />
       <Titulo texto={holaMundo} />
