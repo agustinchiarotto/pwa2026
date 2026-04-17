@@ -1,166 +1,33 @@
-const epicCharacters = [
-  {
-    name: "Tharok Ironfang",
-    race: "Half-Orc",
-    class: "Barbarian",
-    level: 8,
-    weapon: "Greataxe of the Storm",
-    trait: "Fearless warrior with a thunderous battle cry"
-  },
-  {
-    name: "Elandra Moonshadow",
-    race: "Elf",
-    class: "Sorcerer",
-    level: 9,
-    weapon: "Staff of Arcane Flames",
-    trait: "Mystical mage who bends fire and shadow to her will"
-  },
-  {
-    name: "Bromric Stoneheart",
-    race: "Dwarf",
-    class: "Paladin",
-    level: 7,
-    weapon: "Hammer of the Sacred Oath",
-    trait: "Holy defender sworn to protect the ancient kingdoms"
+const promesa = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Datos recibidos");
+  }, 1000);
+});
+
+promesa
+  .then((resultado) => {
+    console.log(resultado);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+
+   -----------
+
+   function traerDatos() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve("Datos recibidos"), 1000);
+  });
+}
+
+async function main() {
+  try {
+    const datos = await traerDatos();
+    console.log(datos);
+  } catch (error) {
+    console.error(error);
   }
-];
-
-
-// ********** 
-
-
-import styles from "./CharacterCard.module.css";
-
-export const CharacterCard = ({ character })  => {
-  return (
-    <article className={styles.card}>
-      <div className={styles.glow}></div>
-
-      <div className={styles.header}>
-        <span className={styles.badge}>Level {character.level}</span>
-        <h2 className={styles.name}>{character.name}</h2>
-      </div>
-
-      <div className={styles.body}>
-        <p className={styles.row}>
-          <span className={styles.label}>Race</span>
-          <span className={styles.value}>{character.race}</span>
-        </p>
-
-        <p className={styles.row}>
-          <span className={styles.label}>Class</span>
-          <span className={styles.value}>{character.class}</span>
-        </p>
-
-        <p className={styles.row}>
-          <span className={styles.label}>Weapon</span>
-          <span className={styles.value}>{character.weapon}</span>
-        </p>
-
-        <div className={styles.traitBox}>
-          <span className={styles.label}>Trait</span>
-          <p className={styles.trait}>{character.trait}</p>
-        </div>
-      </div>
-    </article>
-  );
 }
 
-
-
-.card {
-  position: relative;
-  overflow: hidden;
-  width: 320px;
-  padding: 20px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #1a1a24, #111119);
-  border: 1px solid rgba(255, 215, 120, 0.18);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  color: #f5e9c9;
-  font-family: Arial, sans-serif;
-}
-
-.glow {
-  position: absolute;
-  top: -60px;
-  right: -60px;
-  width: 160px;
-  height: 160px;
-  background: radial-gradient(circle, rgba(255, 191, 73, 0.22), transparent 70%);
-  pointer-events: none;
-}
-
-.header {
-  position: relative;
-  margin-bottom: 18px;
-}
-
-.badge {
-  display: inline-block;
-  margin-bottom: 10px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(255, 196, 87, 0.12);
-  border: 1px solid rgba(255, 196, 87, 0.25);
-  color: #ffd27a;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.name {
-  margin: 0;
-  font-size: 26px;
-  line-height: 1.1;
-  color: #fff4d6;
-  text-shadow: 0 0 12px rgba(255, 210, 122, 0.15);
-}
-
-.body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.row {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.label {
-  margin-bottom: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #caa85a;
-}
-
-.value {
-  font-size: 15px;
-  color: #f7edd4;
-}
-
-.traitBox {
-  margin-top: 4px;
-  padding: 14px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, rgba(255, 211, 122, 0.08), rgba(255, 211, 122, 0.03));
-  border: 1px solid rgba(255, 211, 122, 0.16);
-}
-
-.trait {
-  margin: 0;
-  color: #f4ead0;
-  font-size: 14px;
-  line-height: 1.5;
-}
+main();

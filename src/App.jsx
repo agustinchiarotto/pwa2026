@@ -40,13 +40,27 @@ function App() {
   const [count, setCount] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [filtroPaladin, setFiltroPaladin] = useState(false);
+  const [charmander, setCharmander] = useState();
+
+  const obtenerDatos = async () => {
+    try {
+      const datos = await fetch("https://pokeapi.co/api/v2/pokemon/charmander");
+      setCharmander(await datos.json());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerDatos();
+  }, []);
 
   console.log("Render....");
   // console.log("inputValue en app: ", inputValue);
   // console.log("filtroPaladin: ", filtroPaladin);
 
   const filteredCharacters = epicCharacters.filter((character) => {
-    return character.name.toLowerCase() === inputValue.toLowerCase();
+    return character.name.toLowerCase().includes(inputValue.toLowerCase());
   });
 
   const paladines = epicCharacters.filter((character) => {
@@ -55,6 +69,23 @@ function App() {
 
   useEffect(() => {
     document.title = saludo;
+    //localStorage.setItem("characters", JSON.stringify(epicCharacters));
+    //  localStorage.setItem("Elandra", JSON.stringify(epicCharacters[1]));
+    let elandra = localStorage.getItem("elandra");
+
+    if (elandra) {
+      console.log(elandra.name);
+    } else {
+      elandra = { name: "Elandra...." };
+    }
+
+    const charactersFromStorage = localStorage.getItem("character");
+    if (charactersFromStorage) {
+      console.log(
+        "Recupere de localstorage: ",
+        JSON.parse(charactersFromStorage)
+      );
+    }
   }, []);
 
   useEffect(() => {
@@ -64,6 +95,8 @@ function App() {
   const onChangeInput = (e) => {
     setInputValue(e.target.value);
   };
+
+  console.log(charmander);
 
   return (
     <div style={{ display: "flex ", flexDirection: "column", gap: 18 }}>
@@ -101,11 +134,18 @@ function App() {
         <span>Clase: paladin</span>
       </label>
 
-      <div style={{ display: "flex", gap: 24 }}>
-        {paladines.map((character) => {
+      {/* <div style={{ display: "flex", gap: 24 }}>
+        {filteredCharacters.map((character) => {
           return <CharacterCard key={character.name} character={character} />;
         })}
-      </div>
+      </div> */}
+
+      {charmander && (
+        <>
+          <Titulo texto={charmander.name} />
+          <img src={charmander.sprites.front_default} width={300} />
+        </>
+      )}
     </div>
   );
 }
