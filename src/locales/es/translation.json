@@ -1,0 +1,17 @@
+{
+  "home": {
+    "title": "Personajes de D&D Épicos"
+  },
+  "profile": {
+    "title": "Mi perfil"
+  },
+  "spanish": "Español",
+  "english": "Ingles",
+  "characterCard": {
+    "level": "Nivel",
+    "race": "Raza",
+    "class": "Clase",
+    "weapon": "Arma",
+    "trait": "Talento"
+  }
+}

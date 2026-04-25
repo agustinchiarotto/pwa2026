@@ -1,33 +1,157 @@
-const promesa = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve("Datos recibidos");
-  }, 1000);
-});
-
-promesa
-  .then((resultado) => {
-    console.log(resultado);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+npm install react-i18next i18next
 
 
-   -----------
+src/
+  i18n.js
+  locales/
+    es/
+      translation.json
+    en/
+      translation.json
+  components/
+    LanguageSwitcher.jsx
+    GameCard.jsx
+  App.jsx
+  main.jsx
 
-   function traerDatos() {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve("Datos recibidos"), 1000);
-  });
-}
 
-async function main() {
-  try {
-    const datos = await traerDatos();
-    console.log(datos);
-  } catch (error) {
-    console.error(error);
+  archivos: 
+
+  {
+  "app": {
+    "title": "Personajes épicos",
+    "subtitle": "Explorá una galería de héroes legendarios para una aventura de rol.",
+    "changeLanguage": "Cambiar idioma"
+  },
+  "character": {
+    "race": "Raza",
+    "class": "Clase",
+    "level": "Nivel",
+    "weapon": "Arma",
+    "trait": "Rasgo",
+    "levelValue": "Nivel {{level}}"
+  },
+  "races": {
+    "halfOrc": "Semiorco",
+    "elf": "Elfa",
+    "dwarf": "Enano"
+  },
+  "classes": {
+    "barbarian": "Bárbaro",
+    "sorcerer": "Hechicera",
+    "paladin": "Paladín"
+  },
+  "weapons": {
+    "greataxeOfTheStorm": "Gran hacha de la tormenta",
+    "staffOfArcaneFlames": "Bastón de llamas arcanas",
+    "hammerOfTheSacredOath": "Martillo del juramento sagrado"
+  },
+  "traits": {
+    "tharok": "Guerrero temerario con un grito de batalla capaz de hacer temblar el campo de combate.",
+    "elandra": "Maga mística que doblega el fuego y las sombras a su voluntad.",
+    "bromric": "Defensor sagrado juramentado para proteger los antiguos reinos."
   }
 }
 
-main();
+
+En: {
+  "app": {
+    "title": "Epic characters",
+    "subtitle": "Explore a gallery of legendary heroes for a role-playing adventure.",
+    "changeLanguage": "Change language"
+  },
+  "character": {
+    "race": "Race",
+    "class": "Class",
+    "level": "Level",
+    "weapon": "Weapon",
+    "trait": "Trait",
+    "levelValue": "Level {{level}}"
+  },
+  "races": {
+    "halfOrc": "Half-Orc",
+    "elf": "Elf",
+    "dwarf": "Dwarf"
+  },
+  "classes": {
+    "barbarian": "Barbarian",
+    "sorcerer": "Sorcerer",
+    "paladin": "Paladin"
+  },
+  "weapons": {
+    "greataxeOfTheStorm": "Greataxe of the Storm",
+    "staffOfArcaneFlames": "Staff of Arcane Flames",
+    "hammerOfTheSacredOath": "Hammer of the Sacred Oath"
+  },
+  "traits": {
+    "tharok": "Fearless warrior with a thunderous battle cry that shakes the battlefield.",
+    "elandra": "Mystical mage who bends fire and shadow to her will.",
+    "bromric": "Holy defender sworn to protect the ancient kingdoms."
+  }
+}
+
+
+
+
+Configuracion:
+
+En src/i18n.js
+
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+import es from "./locales/es/translation.json";
+import en from "./locales/en/translation.json";
+
+const savedLanguage = localStorage.getItem("language") || "es";
+
+i18n.use(initReactI18next).init({
+  resources: {
+    es: {
+      translation: es,
+    },
+    en: {
+      translation: en,
+    },
+  },
+  lng: savedLanguage,
+  fallbackLng: "es",
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
+export default i18n;
+
+
+en main importar main.jsx
+
+import "./i18n";
+
+
+Componente de cambio de idioma:
+
+import { useTranslation } from "react-i18next";
+
+export function LanguageSwitcher() {
+  const { t, i18n } = useTranslation();
+
+  const handleChangeLanguage = (language) => {
+    i18n.changeLanguage(language);
+    localStorage.setItem("language", language);
+  };
+
+  return (
+    <div>
+      <span>{t("actions.changeLanguage")}: </span>
+
+      <button onClick={() => handleChangeLanguage("es")}>
+        Español
+      </button>
+
+      <button onClick={() => handleChangeLanguage("en")}>
+        English
+      </button>
+    </div>
+  );
+}

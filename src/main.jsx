@@ -6,6 +6,7 @@ import { Home } from "./pages/Home/Home.jsx";
 import { Profile } from "./pages/Profile/Profile.jsx";
 import { Routes } from "./const/routes.js";
 import { Details } from "./pages/Details/Details.jsx";
+import "./i18n.js";
 
 const router = createBrowserRouter([
   {
