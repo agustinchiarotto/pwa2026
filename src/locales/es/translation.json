@@ -13,5 +13,10 @@
     "class": "Clase",
     "weapon": "Arma",
     "trait": "Talento"
+  },
+  "characterMetrics": {
+    "totalCharacters": "Total personajes",
+    "averageLevel": "Nivel promedio",
+    "maxLevel": "Nivel maximo"
   }
 }

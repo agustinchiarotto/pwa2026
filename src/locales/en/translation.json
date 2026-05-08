@@ -13,5 +13,10 @@
     "class": "Class",
     "weapon": "Weapon",
     "trait": "Trait"
+  },
+  "characterMetrics": {
+    "totalCharacters": "Total characters",
+    "averageLevel": "Average level",
+    "maxLevel": "Max level"
   }
 }
