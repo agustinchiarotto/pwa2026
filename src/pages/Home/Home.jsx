@@ -1,10 +1,12 @@
-import React from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { Routes } from "../../const/routes";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../LanguageSwitcher/LanguageSwitcher";
 import { CharacterCard } from "../../components/CharacterCard/CharacterCard";
 import { CHARACTERS } from "../../const/characters";
+import { CheckBox } from "../../components/Checkbox/Checkbox";
+import { CharacterMetrics } from "../../components/CharacterMetrics/CharacterMetrics";
 
 const TRANSLATION_KEYS = {
   home: {
@@ -14,8 +16,17 @@ const TRANSLATION_KEYS = {
 
 export const Home = () => {
   const navigation = useNavigate();
+  const [showHighLevelOnly, setShowHighLevelOnly] = useState(false);
 
   const { t } = useTranslation();
+
+  const visibleCharacters = useMemo(() => {
+    if (!showHighLevelOnly) {
+      return CHARACTERS;
+    }
+
+    return CHARACTERS.filter((character) => character.level >= 8);
+  }, [showHighLevelOnly]);
 
   //la llamada al service
 
@@ -32,8 +43,20 @@ export const Home = () => {
         Profile{" "}
       </button>
 
+      <CheckBox
+        id="high-level-filter"
+        name="high-level-filter"
+        label="Solo nivel 8+"
+        checked={showHighLevelOnly}
+        onChange={(event) => {
+          setShowHighLevelOnly(event.target.checked);
+        }}
+      />
+
+      <CharacterMetrics characters={visibleCharacters} />
+
       <div className="flex gap-10 justify-center">
-        {CHARACTERS.map((character) => {
+        {visibleCharacters.map((character) => {
           return <CharacterCard key={character.name} character={character} />;
         })}
       </div>

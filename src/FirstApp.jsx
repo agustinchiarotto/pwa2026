@@ -4,6 +4,7 @@ import { Titulo } from "./components/Titulo/Titulo";
 import { CharacterCard } from "./components/CharacterCard/CharacterCard";
 import { Input } from "./components/Input/Input";
 import { CheckBox } from "./components/Checkbox/Checkbox";
+import { getPokemonByName } from "./services/pokemon";
 
 const holaMundo = "Hola Mundo!";
 
@@ -44,8 +45,7 @@ function App() {
 
   const obtenerDatos = async () => {
     try {
-      const datos = await fetch("https://pokeapi.co/api/v2/pokemon/charmander");
-      setCharmander(await datos.json());
+      setCharmander(await getPokemonByName("charmander"));
     } catch (error) {
       console.log(error);
     }
